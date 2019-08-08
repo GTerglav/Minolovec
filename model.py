@@ -5,25 +5,32 @@ import random
 
 #Konstante
 
-#polje 9*9
-rešeno_polje9 = [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
 
 class Celica:
-        def __init__(self, vrsta_id, stolpec_id, mina=False, vidna=False, zastavica=False):
-                self.vrsta = vrsta
-                self.stolpec = stolpec
+        def __init__(self, mina, vidna=False, zastavica=False):
                 self.mina = mina
                 self.vidna = vidna
                 self.zastavica = zastavica
                 return
 
+        def __repr__(self):
+                if self.mina == False and self.vidna == True and self.zastavica == False:
+                        return "H"
+                if self.vidna == False:
+                        return "O"
+                if self.vidna == True and self.zastavica == True:
+                        return "F"
+                if self.vidna == True and self.mina == True:
+                        return "X"
+
+
+        
         def razkrij(self):
                 self.vidna = True
                 return
         
         def postavi_zastavico(self):
-                if not celica.vidna:
+                if not self.vidna:
                         self.zastavica = not self.zastavica
                 return
 
@@ -33,38 +40,45 @@ class Celica:
 
 
 class Polje:
-
-        def __init__(self, velikost):
-                self.velikost = velikost
-                return
-
-
-        def mina_repr(self, vrsta_id, stolpec_id):
-                cell = self[vrsta_id][stolpec_id]
-
-
-class Igra:
+        def __init__(self, seznam):
+                self.seznam = seznam
         
+        def poraz(self):
+                for i in range(len(self.seznam)):
+                        for j in self.seznam[i]:
+                                if j.mina == True and j.vidna == True:
+                                        return True
+                return False
+
+
+def naredi_polje(velikost, mine):
+        #naredi matriko
+        if mine > velikost ** 2:
+                return False
+        matrika = []
+        for i in range(velikost):
+                vrstica = []
+                for j in range(velikost):
+                        vrstica.append(Celica(False))
+                matrika.append(vrstica)
+        
+        polje = Polje(matrika)
+        
+        #postavi mine
+        sez_moznosti = []
+        for i in range(velikost):
+                for j in range(velikost):
+                        sezz = []
+                        sezz.append(i)
+                        sezz.append(j)
+                        sez_moznosti.append(sezz)
+
+        for i in range(mine):
+                nov_poz = random.choice(sez_moznosti)
+                sez_moznosti.remove(nov_poz)
+                matrika[nov_poz[0]][nov_poz[1]].postavi_mino()
+        return matrika
         
 
 
 
-
-def naredi_mino(sez):
-    vrstica = random.randint(0,8)
-    stolpec = random.randint(0,8)
-    if not rešeno_polje9[vrstica][stolpec] == "*":
-        rešeno_polje9[vrstica][stolpec] = "*"
-
-
-def postavi_mine(self):
-    for n in range(10):
-        naredi_bombo(rešeno_polje9)
-
-        
-
-
-
-
-
-reset()
