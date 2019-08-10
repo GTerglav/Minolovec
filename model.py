@@ -7,7 +7,9 @@ import random
 
 
 class Celica:
-        def __init__(self, mina, vidna=False, zastavica=False):
+        def __init__(self, vrsta, stolpec, mina, vidna=False, zastavica=False):
+                self.vrsta = vrsta
+                self.stolpec = stolpec
                 self.mina = mina
                 self.vidna = vidna
                 self.zastavica = zastavica
@@ -18,7 +20,7 @@ class Celica:
                         return "H"
                 if self.vidna == False:
                         return "O"
-                if self.vidna == True and self.zastavica == True:
+                if self.zastavica == True:
                         return "F"
                 if self.vidna == True and self.mina == True:
                         return "X"
@@ -42,6 +44,29 @@ class Celica:
 class Polje:
         def __init__(self, seznam):
                 self.seznam = seznam
+
+        
+        
+        def __str__(self):
+                niz = ""
+                for vrsta in range(len(self.seznam)):
+                        vrstica_niza = ""
+                        for stolpec in range(len(self.seznam)):
+                                vrstica_niza += str(self.prikaz_mine(vrsta, stolpec)) + " "
+                        niz += vrstica_niza + "\n"
+                return niz 
+        
+        def prikaz_mine(self, vrsta, stolpec):
+                celica = self.seznam[vrsta][stolpec]
+                if celica.mina == False and celica.vidna == True and celica.zastavica == False:
+                        return self.preštej_mine(vrsta,stolpec)
+                if celica.vidna == False:
+                        return "O"
+                if celica.zastavica == True:
+                        return "F"
+                if celica.vidna == True and celica.mina == True:
+                        return "X"
+        
         
         def poraz(self):
                 for i in range(len(self.seznam)):
@@ -89,7 +114,7 @@ def naredi_polje(velikost, mine):
         for i in range(velikost):
                 vrstica = []
                 for j in range(velikost):
-                        vrstica.append(Celica(False))
+                        vrstica.append(Celica(i, j, False))
                 matrika.append(vrstica)
                
         #postavi mine
