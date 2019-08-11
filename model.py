@@ -67,7 +67,7 @@ class Polje:
                 if celica.vidna == True and celica.mina == True:
                         return "X"
         
-        def show(self, vrsta, stolpec):
+        def razkrij(self, vrsta, stolpec):
                 celica = self.seznam[vrsta][stolpec]
                 if celica.vidna == False:
                         celica.razkrij()
