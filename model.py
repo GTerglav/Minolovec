@@ -56,7 +56,7 @@ class Polje:
                         niz += vrstica_niza + "\n"
                 return niz 
         
-        def prikaz_mine(self, vrsta, stolpec):
+        def prikaz_celice(self, vrsta, stolpec):
                 celica = self.seznam[vrsta][stolpec]
                 if celica.mina == False and celica.vidna == True and celica.zastavica == False:
                         return self.preštej_mine(vrsta,stolpec)
@@ -67,6 +67,14 @@ class Polje:
                 if celica.vidna == True and celica.mina == True:
                         return "X"
         
+        def show(self, vrsta, stolpec):
+                celica = self.seznam[vrsta][stolpec]
+                if celica.vidna == False:
+                        celica.razkrij()
+                        if self.preštej_mine(vrsta, stolpec) == 0:
+                                for x_os, y_os in self.sosedi(vrsta, stolpec):
+                                        if self.je_dovoljena(x_os, y_os):
+                                                self.show(x_os, y_os)
         
         def poraz(self):
                 for i in range(len(self.seznam)):
