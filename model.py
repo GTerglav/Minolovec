@@ -4,7 +4,8 @@ import random
 
 
 #Konstante
-
+ZMAGA = "W"
+PORAZ = "L"
 
 class Celica:
         def __init__(self, vrsta, stolpec, mina, vidna=False, zastavica=False):
@@ -52,7 +53,7 @@ class Polje:
                 for vrsta in range(len(self.seznam)):
                         vrstica_niza = ""
                         for stolpec in range(len(self.seznam)):
-                                vrstica_niza += str(self.prikaz_mine(vrsta, stolpec)) + " "
+                                vrstica_niza += str(self.prikaz_celice(vrsta, stolpec)) + " "
                         niz += vrstica_niza + "\n"
                 return niz 
         
@@ -60,7 +61,7 @@ class Polje:
                 celica = self.seznam[vrsta][stolpec]
                 if celica.mina == False and celica.vidna == True and celica.zastavica == False:
                         return self.preštej_mine(vrsta,stolpec)
-                if celica.vidna == False:
+                if celica.vidna == False and celica.zastavica == False:
                         return "O"
                 if celica.zastavica == True:
                         return "F"
@@ -74,7 +75,11 @@ class Polje:
                         if self.preštej_mine(vrsta, stolpec) == 0:
                                 for x_os, y_os in self.sosedi(vrsta, stolpec):
                                         if self.je_dovoljena(x_os, y_os):
-                                                self.show(x_os, y_os)
+                                                self.razkrij(x_os, y_os)
+        def postavi_zastavico(self, vrsta, stolpec):
+                celica = self.seznam[vrsta][stolpec]
+                if celica.vidna == False:
+                        celica.postavi_zastavico()                               
         
         def poraz(self):
                 for i in range(len(self.seznam)):
@@ -112,6 +117,22 @@ class Polje:
         def je_dovoljena(self, vrsta, stolpec):
                 return 0 <= vrsta <= len(self.seznam) - 1 and 0 <= stolpec <= len(self.seznam) - 1
         
+        def ugibaj(self, ugib):
+                str(ugib)
+                sez = ugib.split(" ")
+                vrstica = int(sez[0]) - 1
+                stolpec = int(sez[1]) - 1
+                if len(sez) == 3:
+                        self.postavi_zastavico(vrstica, stolpec)
+                else:
+                        self.razkrij(vrstica, stolpec)
+
+                
+
+                if self.zmaga():
+                        return ZMAGA
+                elif self.poraz():
+                        return PORAZ
 
 
 def naredi_polje(velikost, mine):
@@ -148,4 +169,71 @@ def razkrij_vse(sez):
                         sez[i][j].razkrij()
         return
 
+def nova_igra(velikost, mine):
+        polje = naredi_polje(velikost, mine)
+        return Polje(polje)
 
+#polje = naredi_polje(9,10)
+#matrika = Polje(polje)
+#print(matrika)
+#
+
+
+#txt umesnik
+
+def pozdrav():
+        return input("Dobrodošli v minolovca! Napišite velikost polja :")
+
+def izpis_igre(igra):
+        niz = ""
+        for vrsta in range(len(igra.seznam)):
+                vrstica_niza = ""
+                for stolpec in range(len(igra.seznam)):
+                        vrstica_niza += str(igra.prikaz_celice(vrsta, stolpec)) + " "
+                niz += vrstica_niza + "\n"
+        return niz 
+
+def izpis_zmage(igra):
+    return "Čestitamo, pravilno ste rešili polje!"
+
+def izpis_poraza(igra):
+    return "Ha ha, idiot, razneslo te je" 
+
+def zahtevaj_vnos():
+        return input("Napiši vrstico in stolpec, loči ju s presledkom:")
+
+def novo_polje():
+        return input("Napiši velikost polja :")
+
+def nove_mine():
+        return input("Napiši  število min:")
+
+def zazeni_umesnik():
+        velikost = int(pozdrav())
+        mine = int(nove_mine())
+        igra = nova_igra(velikost, mine)
+
+
+
+        while True:
+
+                print(izpis_igre(igra))
+
+                poskus = zahtevaj_vnos()
+                igra.ugibaj(poskus)
+
+                if igra.poraz():
+                        print(izpis_poraza(igra))
+                        info = int(novo_polje())
+                        info2 = int(nove_mine())
+                        igra = nova_igra(info, info2)
+                        
+                elif igra.zmaga():
+                        print(izpis_zmage(igra))
+                        info = int(novo_polje())
+                        info2 = int(nove_mine())
+                        igra = nova_igra(info, info2)
+                        
+        return
+
+zazeni_umesnik()
