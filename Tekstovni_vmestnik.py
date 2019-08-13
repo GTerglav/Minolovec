@@ -1,5 +1,5 @@
-
 import model
+
 
 def pozdrav():
     return input("Dobrodošli v minolovca! Napišite velikost polja :")
@@ -45,7 +45,7 @@ def nove_mine():
 def zazeni_umesnik():
     velikost = int(pozdrav())
     mine = int(nove_mine())
-    igra = nova_igra(velikost, mine)
+    igra = model.nova_igra(velikost, mine)
 
 
 
@@ -57,16 +57,18 @@ def zazeni_umesnik():
             igra.ugibaj(poskus)
 
             if igra.poraz():
+                    print(izpis_igre(igra))
                     print(izpis_poraza(igra))
                     info = int(novo_polje())
                     info2 = int(nove_mine())
-                    igra = nova_igra(info, info2)
+                    igra = model.nova_igra(info, info2)
             
             elif igra.zmaga():
+                    print(izpis_igre(igra))
                     print(izpis_zmage(igra))
                     info = int(novo_polje())
                     info2 = int(nove_mine())
-                    igra = nova_igra(info, info2)
+                    igra = model.nova_igra(info, info2)
                     
     return
 

@@ -46,6 +46,31 @@ class Celica:
 class Polje:
         def __init__(self, seznam):
                 self.seznam = seznam
+
+        
+        
+        #def __str__(self):
+        #        niz = ""
+        #        for vrsta in range(len(self.seznam)):
+        #                vrstica_niza = ""
+        #                for stolpec in range(len(self.seznam)):
+        #                        vrstica_niza += str(self.prikaz_celice(vrsta, stolpec)) + " "
+        #                niz += vrstica_niza + "\n"
+        #        return niz 
+        
+        #def prikaz_celice(self, vrsta, stolpec):
+        #        celica = self.seznam[vrsta][stolpec]
+        #        if celica.mina == False and celica.vidna == True and celica.zastavica == False:
+        #                if self.preštej_mine(vrsta,stolpec) == 0:
+        #                        return " "
+        #                else:
+        #                        return self.preštej_mine(vrsta,stolpec)
+        #        if celica.vidna == False and celica.zastavica == False:
+        #                return "O"
+        #        if celica.zastavica == True:
+        #                return "F"
+        #        if celica.vidna == True and celica.mina == True:
+        #                return "X"
         
         def razkrij(self, vrsta, stolpec):
                 celica = self.seznam[vrsta][stolpec]
