@@ -6,6 +6,7 @@ import random
 #Konstante
 ZMAGA = "W"
 PORAZ = "L"
+NAPAKA_ZASTAVICA = "S"
 
 class Celica:
         def __init__(self, vrsta, stolpec, mina, vidna=False, zastavica=False):
@@ -45,37 +46,25 @@ class Celica:
 class Polje:
         def __init__(self, seznam):
                 self.seznam = seznam
-
-        
-        
-        def __str__(self):
-                niz = ""
-                for vrsta in range(len(self.seznam)):
-                        vrstica_niza = ""
-                        for stolpec in range(len(self.seznam)):
-                                vrstica_niza += str(self.prikaz_celice(vrsta, stolpec)) + " "
-                        niz += vrstica_niza + "\n"
-                return niz 
-        
-        def prikaz_celice(self, vrsta, stolpec):
-                celica = self.seznam[vrsta][stolpec]
-                if celica.mina == False and celica.vidna == True and celica.zastavica == False:
-                        return self.preštej_mine(vrsta,stolpec)
-                if celica.vidna == False and celica.zastavica == False:
-                        return "O"
-                if celica.zastavica == True:
-                        return "F"
-                if celica.vidna == True and celica.mina == True:
-                        return "X"
         
         def razkrij(self, vrsta, stolpec):
                 celica = self.seznam[vrsta][stolpec]
+                if celica.zastavica == True:
+                        return 
                 if celica.vidna == False:
                         celica.razkrij()
                         if self.preštej_mine(vrsta, stolpec) == 0:
                                 for x_os, y_os in self.sosedi(vrsta, stolpec):
                                         if self.je_dovoljena(x_os, y_os):
                                                 self.razkrij(x_os, y_os)
+
+                #če je polje že odkrito in število zastavic, ki ga obkroža ustreza številu min okoli polja, ta funkcija razkrije vsa sosednja neodkrita polja
+                #if celica.vidna == True and self.preštej_mine(vrsta, stolpec) == self.preštej_zastavice(vrsta, stolpec):
+                #        for x_os, y_os in self.sosedi(vrsta, stolpec):
+                #                cell = self.seznam[x_os][y_os]
+                #                if self.je_dovoljena(x_os, y_os) and cell.vidna == False and cell.zastavica == False:
+                #                        cell.razkrij() 
+
         def postavi_zastavico(self, vrsta, stolpec):
                 celica = self.seznam[vrsta][stolpec]
                 if celica.vidna == False:
@@ -95,6 +84,14 @@ class Polje:
                                         return False
                 return True
         
+        #funkciji preštejeta sosednje zastavice in mine
+        def preštej_zastavice(self, vrsta, stolpec):
+                vsota = 0
+                for x_os, y_os in self.sosedi(vrsta, stolpec):
+                        if self.je_dovoljena(x_os, y_os):
+                                if self.seznam[x_os][y_os].zastavica == True:
+                                        vsota += 1
+                return vsota
 
         def preštej_mine(self, vrsta, stolpec):
                 vsota = 0
@@ -103,7 +100,7 @@ class Polje:
                                 if self.seznam[x_os][y_os].mina == True:
                                         vsota += 1
                 return vsota
-
+        # pomožni funkciji za zgornji dve                               
         def sosedi(self, vrsta, stolpec):
                 sez = []
                 okolica = ((-1, -1), (-1,  0), (-1,  1),
@@ -117,6 +114,7 @@ class Polje:
         def je_dovoljena(self, vrsta, stolpec):
                 return 0 <= vrsta <= len(self.seznam) - 1 and 0 <= stolpec <= len(self.seznam) - 1
         
+        # funkcija ki sprejme naš ugib
         def ugibaj(self, ugib):
                 str(ugib)
                 sez = ugib.split(" ")
@@ -173,67 +171,5 @@ def nova_igra(velikost, mine):
         polje = naredi_polje(velikost, mine)
         return Polje(polje)
 
-#polje = naredi_polje(9,10)
-#matrika = Polje(polje)
-#print(matrika)
-#
 
 
-#txt umesnik
-
-def pozdrav():
-        return input("Dobrodošli v minolovca! Napišite velikost polja :")
-
-def izpis_igre(igra):
-        niz = ""
-        for vrsta in range(len(igra.seznam)):
-                vrstica_niza = ""
-                for stolpec in range(len(igra.seznam)):
-                        vrstica_niza += str(igra.prikaz_celice(vrsta, stolpec)) + " "
-                niz += vrstica_niza + "\n"
-        return niz 
-
-def izpis_zmage(igra):
-    return "Čestitamo, pravilno ste rešili polje!"
-
-def izpis_poraza(igra):
-    return "Ha ha, idiot, razneslo te je" 
-
-def zahtevaj_vnos():
-        return input("Napiši vrstico in stolpec, loči ju s presledkom:")
-
-def novo_polje():
-        return input("Napiši velikost polja :")
-
-def nove_mine():
-        return input("Napiši  število min:")
-
-def zazeni_umesnik():
-        velikost = int(pozdrav())
-        mine = int(nove_mine())
-        igra = nova_igra(velikost, mine)
-
-
-
-        while True:
-
-                print(izpis_igre(igra))
-
-                poskus = zahtevaj_vnos()
-                igra.ugibaj(poskus)
-
-                if igra.poraz():
-                        print(izpis_poraza(igra))
-                        info = int(novo_polje())
-                        info2 = int(nove_mine())
-                        igra = nova_igra(info, info2)
-                        
-                elif igra.zmaga():
-                        print(izpis_zmage(igra))
-                        info = int(novo_polje())
-                        info2 = int(nove_mine())
-                        igra = nova_igra(info, info2)
-                        
-        return
-
-zazeni_umesnik()
