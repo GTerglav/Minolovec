@@ -196,5 +196,12 @@ def nova_igra(velikost, mine):
         polje = naredi_polje(velikost, mine)
         return Polje(polje)
 
-
+def izpis_igre(igra):
+    niz = ""
+    for vrsta in range(len(igra.seznam)):
+            vrstica_niza = ""
+            for stolpec in range(len(igra.seznam)):
+                    vrstica_niza += str(prikaz_celice(igra, vrsta, stolpec)) + " "
+            niz += vrstica_niza + "\n"
+    return niz 
 
