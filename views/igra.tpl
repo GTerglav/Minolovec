@@ -1,57 +1,66 @@
 % import model
+
+
 <!DOCTYPE html>
 <html>
 
 <body>
 
-  <h1>Minolovec</h1>
+  <h1 align="center">Minolovec</h1>
 
-  <table>
+  <table align="center">
     <tr>
+        
       <td>
-          {{ model.izpis_igre(igra) }}
+          <pre>
+% if igra == "F": 
+{{"Verjetno si se zatipkal. Poskusi ponovno"}} 
+<form action="/igra/" method="post">
+  <input type="text" name="velikost_mine">
+  <input type="submit" value="Nova igra">
+</form>  
+              
+% else: 
+{{  model.izpis_igre(igra) }}                           
+          </pre>
       </td>
+    
+          
+      
+      
     </tr>
 
-</table>
-
-  
-
-
-  
-</body>
-
-</html>
 
 
 
 
 
- <!--      <tr>
-      <td>
-          Nepravilne crke: {{ igra.nepravilni_ugibi() }}
-      </td>
-    </tr>
+
+     
 
     % if poskus == model.ZMAGA or poskus == model.PORAZ:
-      <form action="/igra/" method="post">
-        <button type="submit">Nova igra</button>
-      </form>
+    <tr>
+      <td align="center">
+          <form action="/igra/" method="post">
+            <input type="text" name="velikost_mine">
+            <input type="submit" value="Nova igra">
+        </form>
+      </td>
+    </tr>
 
 
     %else:
     <tr>
-      <form action="/igra/{{id_igre}}/" method="post">
-      <input type="text" name="poskus">
-      <input type="submit" value="ugibaj">
+      <td align="center">
+          <form action="/igra/{{id_igre}}/" method="post">
+            <input type="text" name="poskus">
+            <input type="submit" value="ugibaj">
+      </td>
+      
     </tr>
 
     %end
-    <tr>
-      <td>
-          <img src="img/10.jpg" alt="Obesanje:">
-      </td>
-    </tr>
+
     
   </table>
 
@@ -61,4 +70,4 @@
   
 </body>
 
-</html>-->
+</html>

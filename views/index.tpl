@@ -3,7 +3,7 @@
 
 <body>
 
-   <h1>Minolovec</h1>
+   <h1 align="center">Minolovec</h1>
 
    <p>
     Minolovec je najboljša igra za preganjanje dolgčasa (poleg tetrisa).
@@ -25,21 +25,25 @@
         Izbereš lahko tudi število min.
     </p>
     <p>
-        Vpiši velikost polja:
-        <input type="text" name="velikost">
-        <input type="submit" value="izberi">
+        Vpiši velikost polja, nato pa število min. Števili loči s presledkom:
+        <form action="/igra/" method="post">
+            <input type="text" name="velikost_mine">
+            <input type="submit" value="Nova igra">
+        </form>
+        
     </p>
-    <p>
+ <!--   <p>
         Vpiši število min:
         <input type="text" name="mine">
         <input type="submit" value="izberi">
+        
     </p>
     
 
 
   <form action="/igra/" method="post">
     <button type="submit">Nova igra</button>
-  </form>
+  </form> -->
 </body>
 
 </html>

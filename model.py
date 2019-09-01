@@ -8,6 +8,7 @@ ZMAGA = "W"
 PORAZ = "L"
 NAPAKA_ZASTAVICA = "S"
 NAPAKA = "F"
+ZACETEK = "S"
 
 class Celica:
         def __init__(self, vrsta, stolpec, mina, vidna=False, zastavica=False):
@@ -18,15 +19,15 @@ class Celica:
                 self.zastavica = zastavica
                 return
 
-        def __repr__(self):
-                if self.mina == False and self.vidna == True and self.zastavica == False:
-                        return "H"
-                if self.vidna == False:
-                        return "O"
-                if self.zastavica == True:
-                        return "F"
-                if self.vidna == True and self.mina == True:
-                        return "X"
+        #def __repr__(self):
+        #        if self.mina == False and self.vidna == True and self.zastavica == False:
+        #                return "H"
+        #        if self.vidna == False:
+        #                return "O"
+        #        if self.zastavica == True:
+        #                return "F"
+        #        if self.vidna == True and self.mina == True:
+        #                return "X"
 
 
         
@@ -231,20 +232,69 @@ def nova_igra(velikost, mine):
                 return Polje(polje)
 
 def izpis_igre(igra):
-    niz = "    "
-    for stolpec in range(len(igra.seznam)):
-        if stolpec >= 9:
-                niz += str(stolpec + 1) + " "
-        else:
-                niz += str(stolpec + 1) + "  "
-    niz += "\n" * 2
-    for vrsta in range(len(igra.seznam)):
-            vrstica_niza = ""
-            for stolpec in range(len(igra.seznam)):
-                    vrstica_niza += str(prikaz_celice(igra, vrsta, stolpec)) + "  "
-            
-            if vrsta >= 9:
-                    niz += str(vrsta + 1) + "  " + vrstica_niza + "\n"
-            else:
-                    niz += str(vrsta + 1) + "   " + vrstica_niza + "\n"
 
+        niz = "    "
+        for stolpec in range(len(igra.seznam)):
+                if stolpec >= 9:
+                        niz += str(stolpec + 1) + " "
+                else:
+                        niz += str(stolpec + 1) + "  "
+        niz += "\n" * 2
+        for vrsta in range(len(igra.seznam)):
+                vrstica_niza = ""
+                for stolpec in range(len(igra.seznam)):
+                        vrstica_niza += str(prikaz_celice(igra, vrsta, stolpec)) + "  "
+
+                if vrsta >= 9:
+                        niz += str(vrsta + 1) + "  " + vrstica_niza + "\n"
+                else:
+                        niz += str(vrsta + 1) + "   " + vrstica_niza + "\n"
+        
+        return niz
+
+def prikaz_celice(igra, vrsta, stolpec):
+    celica = igra.seznam[vrsta][stolpec]
+    if celica.mina == False and celica.vidna == True and celica.zastavica == False:
+            if igra.preštej_mine(vrsta,stolpec) == 0:
+                    return " "
+            else:
+                    return igra.preštej_mine(vrsta,stolpec)
+    if celica.vidna == False and celica.zastavica == False:
+            return "O"
+    if celica.zastavica == True:
+            return "F"
+    if celica.vidna == True and celica.mina == True:
+            return "X"
+
+class Minolovec:
+
+    def __init__(self):
+        # V slovarju igre ima vsaka igra svoj ID
+        # ID je celo število
+        self.igre = {} 
+        return 
+
+    def prost_id_igre(self):
+        if self.igre == {}:
+            return 0
+        else:
+            # preverimo katero od prvih "n+1" števil
+            # še ni uporabljeno za id "n" iger
+            for i in range(len(self.igre) + 1):
+                if i not in self.igre.keys():
+                    return i
+    
+    def nova_igra(self, velikost, mine):
+        # naredi novo igro z naključnim geslom in jo shrani (ZACETEK, igra) v slovar z novim id
+        nov_id = self.prost_id_igre()
+        self.igre[nov_id] = (nova_igra(velikost, mine), ZACETEK)
+        return nov_id
+
+    def ugibaj(self, id_igre, ugib):
+        # Pridobi igro
+        (igra, poskus) = self.igre[id_igre]
+        # Ugibaj
+        nov_poskus = igra.ugibaj(ugib)
+        # Shrani rezultat poskusa v slovar
+        self.igre[id_igre] = (igra, nov_poskus)
+        return
