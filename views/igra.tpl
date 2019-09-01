@@ -23,20 +23,8 @@
 % else: 
 {{  model.izpis_igre(igra) }}                           
           </pre>
-      </td>
-    
-          
-      
-      
+      </td>    
     </tr>
-
-
-
-
-
-
-
-     
 
     % if poskus == model.ZMAGA or poskus == model.PORAZ:
     <tr>
