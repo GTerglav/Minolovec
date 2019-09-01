@@ -147,13 +147,10 @@ class Polje:
 
                 #pogoji za neveljaven input                
                 if len(sez) == 1:
-                        print("dolžina1")
                         return NAPAKA
                 elif not sez[0].isdigit():
-                        print("dolžina2")
                         return NAPAKA
                 elif not sez[1].isdigit():
-                        print("dolžina3")
                         return NAPAKA
                 
                 vrstica = int(sez[0]) - 1
@@ -161,26 +158,21 @@ class Polje:
 
 
                 if vrstica > len(self.seznam) - 1 or  stolpec > len(self.seznam) - 1:
-                        print("doolžina8")
                         return NAPAKA
                 elif vrstica < 0 or stolpec < 0:
-                        print("dolžina9")
                         return NAPAKA
                 
         
                 if len(sez) == 3:
                         if sez[2] == "F" or sez[2] == "f":
-                                print("dolžina4")
                                 self.postavi_zastavico(vrstica, stolpec)
                         else:
                                 return NAPAKA       
                         
                  
                 if len(sez) == 2:
-                        print("dolžina6")
                         self.razkrij(vrstica, stolpec)
                 elif len(sez) >= 4:
-                        print("dolžina7")
                         return NAPAKA
         
                 
@@ -188,7 +180,6 @@ class Polje:
                 if self.zmaga():
                         return ZMAGA
                 if self.poraz():
-                        print("skskks")
                         return PORAZ
 
 
