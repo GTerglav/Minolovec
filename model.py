@@ -7,6 +7,7 @@ import random
 ZMAGA = "W"
 PORAZ = "L"
 NAPAKA_ZASTAVICA = "S"
+NAPAKA = "F"
 
 class Celica:
         def __init__(self, vrsta, stolpec, mina, vidna=False, zastavica=False):
@@ -143,25 +144,56 @@ class Polje:
         def ugibaj(self, ugib):
                 str(ugib)
                 sez = ugib.split(" ")
+
+                #pogoji za neveljaven input                
+                if len(sez) == 1:
+                        print("dolžina1")
+                        return NAPAKA
+                elif not sez[0].isdigit():
+                        print("dolžina2")
+                        return NAPAKA
+                elif not sez[1].isdigit():
+                        print("dolžina3")
+                        return NAPAKA
+                
                 vrstica = int(sez[0]) - 1
                 stolpec = int(sez[1]) - 1
-                if len(sez) == 3:
-                        self.postavi_zastavico(vrstica, stolpec)
-                else:
-                        self.razkrij(vrstica, stolpec)
 
+
+                if vrstica > len(self.seznam) - 1 or  stolpec > len(self.seznam) - 1:
+                        print("doolžina8")
+                        return NAPAKA
+                elif vrstica < 0 or stolpec < 0:
+                        print("dolžina9")
+                        return NAPAKA
+                
+        
+                if len(sez) == 3:
+                        if sez[2] == "F" or sez[2] == "f":
+                                print("dolžina4")
+                                self.postavi_zastavico(vrstica, stolpec)
+                        else:
+                                return NAPAKA       
+                        
+                 
+                if len(sez) == 2:
+                        print("dolžina6")
+                        self.razkrij(vrstica, stolpec)
+                elif len(sez) >= 4:
+                        print("dolžina7")
+                        return NAPAKA
+        
                 
 
                 if self.zmaga():
                         return ZMAGA
-                elif self.poraz():
+                if self.poraz():
+                        print("skskks")
                         return PORAZ
 
 
 def naredi_polje(velikost, mine):
         #naredi matriko
-        if mine > velikost ** 2:
-                return False
         matrika = []
         for i in range(velikost):
                 vrstica = []
@@ -193,15 +225,35 @@ def razkrij_vse(sez):
         return
 
 def nova_igra(velikost, mine):
-        polje = naredi_polje(velikost, mine)
-        return Polje(polje)
+        if not velikost.isdigit():
+                return NAPAKA 
+        if not mine.isdigit():
+                return NAPAKA
+
+        velikost = int(velikost)
+        mine = int(mine) 
+
+        if mine > velikost ** 2:
+                return NAPAKA 
+        else:
+                polje = naredi_polje(velikost, mine)
+                return Polje(polje)
 
 def izpis_igre(igra):
-    niz = ""
+    niz = "    "
+    for stolpec in range(len(igra.seznam)):
+        if stolpec >= 9:
+                niz += str(stolpec + 1) + " "
+        else:
+                niz += str(stolpec + 1) + "  "
+    niz += "\n" * 2
     for vrsta in range(len(igra.seznam)):
             vrstica_niza = ""
             for stolpec in range(len(igra.seznam)):
-                    vrstica_niza += str(prikaz_celice(igra, vrsta, stolpec)) + " "
-            niz += vrstica_niza + "\n"
-    return niz 
+                    vrstica_niza += str(prikaz_celice(igra, vrsta, stolpec)) + "  "
+            
+            if vrsta >= 9:
+                    niz += str(vrsta + 1) + "  " + vrstica_niza + "\n"
+            else:
+                    niz += str(vrsta + 1) + "   " + vrstica_niza + "\n"
 
