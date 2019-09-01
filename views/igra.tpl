@@ -26,9 +26,28 @@
       </td>    
     </tr>
 
-    % if poskus == model.ZMAGA or poskus == model.PORAZ:
+    % if poskus == model.ZMAGA: 
+    <tr>
+        <td align="center">
+            <p>
+                Čestitamo, pravilno ste rešili polje!
+            </p>
+            <form action="/igra/" method="post">
+              <input type="text" name="velikost_mine">
+              <input type="submit" value="Nova igra">
+          </form>
+        </td>
+      </tr>
+    
+    
+    
+    
+    % elif poskus == model.PORAZ:
     <tr>
       <td align="center">
+          <p>
+              Ha ha, idiot, razneslo te je!
+          </p>
           <form action="/igra/" method="post">
             <input type="text" name="velikost_mine">
             <input type="submit" value="Nova igra">
