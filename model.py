@@ -18,18 +18,6 @@ class Celica:
                 self.vidna = vidna
                 self.zastavica = zastavica
                 return
-
-        #def __repr__(self):
-        #        if self.mina == False and self.vidna == True and self.zastavica == False:
-        #                return "H"
-        #        if self.vidna == False:
-        #                return "O"
-        #        if self.zastavica == True:
-        #                return "F"
-        #        if self.vidna == True and self.mina == True:
-        #                return "X"
-
-
         
         def razkrij(self):
                 self.vidna = True
@@ -48,31 +36,6 @@ class Celica:
 class Polje:
         def __init__(self, seznam):
                 self.seznam = seznam
-
-        
-        
-        #def __str__(self):
-        #        niz = ""
-        #        for vrsta in range(len(self.seznam)):
-        #                vrstica_niza = ""
-        #                for stolpec in range(len(self.seznam)):
-        #                        vrstica_niza += str(self.prikaz_celice(vrsta, stolpec)) + " "
-        #                niz += vrstica_niza + "\n"
-        #        return niz 
-        
-        #def prikaz_celice(self, vrsta, stolpec):
-        #        celica = self.seznam[vrsta][stolpec]
-        #        if celica.mina == False and celica.vidna == True and celica.zastavica == False:
-        #                if self.preštej_mine(vrsta,stolpec) == 0:
-        #                        return " "
-        #                else:
-        #                        return self.preštej_mine(vrsta,stolpec)
-        #        if celica.vidna == False and celica.zastavica == False:
-        #                return "O"
-        #        if celica.zastavica == True:
-        #                return "F"
-        #        if celica.vidna == True and celica.mina == True:
-        #                return "X"
         
         def razkrij(self, vrsta, stolpec):
                 celica = self.seznam[vrsta][stolpec]
@@ -85,12 +48,6 @@ class Polje:
                                         if self.je_dovoljena(x_os, y_os):
                                                 self.razkrij(x_os, y_os)
 
-                #če je polje že odkrito in število zastavic, ki ga obkroža ustreza številu min okoli polja, ta funkcija razkrije vsa sosednja neodkrita polja
-                #if celica.vidna == True and self.preštej_mine(vrsta, stolpec) == self.preštej_zastavice(vrsta, stolpec):
-                #        for x_os, y_os in self.sosedi(vrsta, stolpec):
-                #                cell = self.seznam[x_os][y_os]
-                #                if self.je_dovoljena(x_os, y_os) and cell.vidna == False and cell.zastavica == False:
-                #                        cell.razkrij() 
 
         def postavi_zastavico(self, vrsta, stolpec):
                 celica = self.seznam[vrsta][stolpec]
