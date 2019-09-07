@@ -15,10 +15,13 @@ def serve_pictures(picture):
 def zacni_novo_igro():
     # Naredi novo igro
     niz = str(bottle.request.forms.getunicode("velikost_mine"))
-    sez = niz.split(" ")
-    velikost = sez[0]
-    mine = sez[1]
-    id_igre = minolovec.nova_igra(velikost, mine)
+    if niz == "":
+        pass
+    else:
+        sez = niz.split(" ")
+        velikost = sez[0]
+        mine = sez[1]
+    id_igre = minolovec.nova_igra(velikost = "9", mine = "10")
     # Preusmeri na naslov za igranje nove igre
     bottle.redirect("/igra/{}/".format(id_igre))
     return
