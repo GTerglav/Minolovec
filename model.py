@@ -9,6 +9,8 @@ PORAZ = "L"
 NAPAKA_ZASTAVICA = "S"
 NAPAKA = "F"
 ZACETEK = "S"
+PRVI = "first"
+
 
 class Celica:
         def __init__(self, vrsta, stolpec, mina, vidna=False, zastavica=False):
@@ -34,6 +36,7 @@ class Celica:
 
 
 class Polje:
+
         def __init__(self, seznam):
                 self.seznam = seznam
         
@@ -100,6 +103,7 @@ class Polje:
 
         # funkcija ki sprejme naš ugib
         def ugibaj(self, ugib):
+                global PRVI
                 str(ugib)
                 sez = ugib.split(" ")
 
@@ -124,7 +128,29 @@ class Polje:
                         else:
                                 return NAPAKA                                             
                 if len(sez) == 2:
-                        self.razkrij(vrstica, stolpec)
+                        #Prvi ugib ne more biti mina razen ce so vsa polja pokrita z minami, vendar si v tem primeru že zmagovalec
+                        if PRVI == "frist":
+                                PRVI = "scnd"
+                                celica = self.seznam[vrstica][stolpec]
+                                if celica.mina == True:
+                                        sez_moznosti = []
+                                        for i in range(len(self.seznam)):
+                                                for j in range(len(self.seznam)):
+                                                        celica2 = self.seznam[i][j]
+                                                        if celica2.mina == False:
+                                                                sezz = []
+                                                                sezz.append(i)
+                                                                sezz.append(j)
+                                                                sez_moznosti.append(sezz)
+                                        if sez_moznosti == []:
+                                                self.razkrij(vrstica, stolpec)
+                                        else:
+                                                nov_poz = random.choice(sez_moznosti)
+                                                celica.mina = False
+                                                self.seznam[nov_poz[0]][nov_poz[1]].postavi_mino()
+                                                self.razkrij(vrstica, stolpec)
+                        else:
+                                self.razkrij(vrstica, stolpec)
                 elif len(sez) >= 4:
                         return NAPAKA       
                 if self.zmaga():
@@ -249,9 +275,11 @@ class Minolovec:
                     return i
     
     def nova_igra(self, velikost, mine):
+        global PRVI
         # naredi novo igro z naključnim geslom in jo shrani (ZACETEK, igra) v slovar z novim id
         nov_id = self.prost_id_igre()
         self.igre[nov_id] = (nova_igra(velikost, mine), mine, ZACETEK)
+        PRVI = "frist"
         return nov_id
 
     def ugibaj(self, id_igre, ugib):
