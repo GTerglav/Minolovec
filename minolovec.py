@@ -21,15 +21,15 @@ def zacni_novo_igro():
         sez = niz.split(" ")
         velikost = sez[0]
         mine = sez[1]
-    id_igre = minolovec.nova_igra(velikost = "9", mine = "10")
+    id_igre = minolovec.nova_igra(velikost, mine)
     # Preusmeri na naslov za igranje nove igre
     bottle.redirect("/igra/{}/".format(id_igre))
     return
 
 @bottle.get("/igra/<id_igre:int>/")
 def prikazi_igro(id_igre):
-    (igra, poskus) = minolovec.igre[id_igre]
-    return bottle.template("igra.tpl", igra=igra, id_igre = id_igre, poskus = poskus)
+    (igra, mine, poskus) = minolovec.igre[id_igre]
+    return bottle.template("igra.tpl", igra=igra, mine = mine, id_igre = id_igre, poskus = poskus)
 
 @bottle.post("/igra/<id_igre:int>/")
 def ugibaj_crko(id_igre):

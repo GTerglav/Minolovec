@@ -63,6 +63,9 @@
             <input type="text" name="poskus">
             <input type="submit" value="ugibaj">
       </td>
+      <td>
+        {{ model.ostale(igra, mine) }}
+      </td>
       
     </tr>
 

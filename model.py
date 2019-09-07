@@ -97,7 +97,7 @@ class Polje:
         
         def je_dovoljena(self, vrsta, stolpec):
                 return 0 <= vrsta <= len(self.seznam) - 1 and 0 <= stolpec <= len(self.seznam) - 1
-        
+
         # funkcija ki sprejme naš ugib
         def ugibaj(self, ugib):
                 str(ugib)
@@ -114,27 +114,19 @@ class Polje:
                 vrstica = int(sez[0]) - 1
                 stolpec = int(sez[1]) - 1
 
-
                 if vrstica > len(self.seznam) - 1 or  stolpec > len(self.seznam) - 1:
                         return NAPAKA
                 elif vrstica < 0 or stolpec < 0:
-                        return NAPAKA
-                
-        
+                        return NAPAKA       
                 if len(sez) == 3:
                         if sez[2] == "F" or sez[2] == "f":
                                 self.postavi_zastavico(vrstica, stolpec)
                         else:
-                                return NAPAKA       
-                        
-                 
+                                return NAPAKA                                             
                 if len(sez) == 2:
                         self.razkrij(vrstica, stolpec)
                 elif len(sez) >= 4:
-                        return NAPAKA
-        
-                
-
+                        return NAPAKA       
                 if self.zmaga():
                         return ZMAGA
                 if self.poraz():
@@ -167,12 +159,6 @@ def naredi_polje(velikost, mine):
         polje = Polje(matrika)
         return matrika
         
-def razkrij_vse(sez):
-        for i in range(len(sez)):
-                for j in range(len(sez)):
-                        sez[i][j].razkrij()
-        return
-
 def nova_igra(velikost, mine):
         if not velikost.isdigit():
                 return NAPAKA 
@@ -223,6 +209,18 @@ def prikaz_celice(igra, vrsta, stolpec):
     if celica.vidna == True and celica.mina == True:
             return "X"
 
+#funkcija prešteje zastavice in pove koliko min je še ostalo
+def ostale(igra, mine):
+        stevec = 0
+        for vrsta in range(len(igra.seznam)):
+                for stolpec in range(len(igra.seznam[vrsta])):
+                        celica = igra.seznam[vrsta][stolpec]
+                        if celica.zastavica == True:
+                                stevec += 1
+        return int(mine) - stevec
+
+#Razred za spletni vmesnik
+
 class Minolovec:
 
     def __init__(self):
@@ -244,14 +242,14 @@ class Minolovec:
     def nova_igra(self, velikost, mine):
         # naredi novo igro z naključnim geslom in jo shrani (ZACETEK, igra) v slovar z novim id
         nov_id = self.prost_id_igre()
-        self.igre[nov_id] = (nova_igra(velikost, mine), ZACETEK)
+        self.igre[nov_id] = (nova_igra(velikost, mine), mine, ZACETEK)
         return nov_id
 
     def ugibaj(self, id_igre, ugib):
         # Pridobi igro
-        (igra, poskus) = self.igre[id_igre]
+        (igra, mine, poskus) = self.igre[id_igre]
         # Ugibaj
         nov_poskus = igra.ugibaj(ugib)
         # Shrani rezultat poskusa v slovar
-        self.igre[id_igre] = (igra, nov_poskus)
+        self.igre[id_igre] = (igra, mine, nov_poskus)
         return
