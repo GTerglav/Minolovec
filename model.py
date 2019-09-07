@@ -217,7 +217,16 @@ def ostale(igra, mine):
                         celica = igra.seznam[vrsta][stolpec]
                         if celica.zastavica == True:
                                 stevec += 1
-        return int(mine) - stevec
+        if int(mine) - stevec >= 3:
+                return "Ostalo ti je še {} min".format(int(mine) - stevec)
+        if int(mine) - stevec == 2:
+                return "Ostali sta ti še 2 mini!"
+        if int(mine) - stevec == 1:
+                return "Ostala ti je le še ena mina!"
+        else:
+                return "Za zmago odkrij ostala polja!"
+
+        
 
 #Razred za spletni vmesnik
 

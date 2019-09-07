@@ -30,7 +30,7 @@
     <tr>
         <td align="center">
             <p>
-                Čestitamo, pravilno ste rešili polje!
+                Čestitamo, zmagali ste!
             </p>
             <form action="/igra/" method="post">
               <input type="text" name="velikost_mine">
@@ -46,7 +46,7 @@
     <tr>
       <td align="center">
           <p>
-              Ha ha, idiot, razneslo te je!
+              Ha, ha, razneslo te je!
           </p>
           <form action="/igra/" method="post">
             <input type="text" name="velikost_mine">
@@ -55,18 +55,19 @@
       </td>
     </tr>
 
-
     %else:
+    <tr>
+        <td align="center">         
+              {{ model.ostale(igra, mine) }}                 
+        </td>
+    </tr>
+
     <tr>
       <td align="center">
           <form action="/igra/{{id_igre}}/" method="post">
             <input type="text" name="poskus">
             <input type="submit" value="ugibaj">
       </td>
-      <td>
-        {{ model.ostale(igra, mine) }}
-      </td>
-      
     </tr>
 
     %end
