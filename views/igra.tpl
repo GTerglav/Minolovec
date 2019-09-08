@@ -12,14 +12,18 @@
     <tr>
         
       <td>
-          <pre>
-% if igra == "F": 
-{{"Verjetno si se zatipkal. Poskusi ponovno"}} 
-<form action="/igra/" method="post">
-  <input type="text" name="velikost_mine">
-  <input type="submit" value="Nova igra">
-</form>  
-              
+          
+% if igra == "F":
+    <p>
+        Verjetno si se zatipkal. Poskusi ponovno:
+    </p>    
+    <form action="/igra/" method="post">
+      <input type="text" name="velikost_mine">
+      <input type="submit" value="Nova igra">
+    </form>  
+   
+
+          <pre>      
 % else: 
 {{  model.izpis_igre(igra) }}                           
           </pre>
@@ -68,11 +72,8 @@
             <input type="text" name="poskus">
             <input type="submit" value="ugibaj">
       </td>
-    </tr>
-
+    </tr>    
     %end
-
-    
   </table>
 
   

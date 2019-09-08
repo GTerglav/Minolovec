@@ -277,7 +277,7 @@ class Minolovec:
     def nova_igra(self, velikost, mine):
         global PRVI
         # naredi novo igro z naključnim geslom in jo shrani (ZACETEK, igra) v slovar z novim id
-        nov_id = self.prost_id_igre()
+        nov_id = self.prost_id_igre()       
         self.igre[nov_id] = (nova_igra(velikost, mine), mine, ZACETEK)
         PRVI = "frist"
         return nov_id

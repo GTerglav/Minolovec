@@ -16,7 +16,7 @@ def zacni_novo_igro():
     # Naredi novo igro
     niz = str(bottle.request.forms.getunicode("velikost_mine"))
     if niz == "":
-        pass
+        return bottle.template("index.tpl", picture = minolovec)
     else:
         sez = niz.split(" ")
         velikost = sez[0]
