@@ -23,8 +23,9 @@
     </form>  
    
 
-          <pre>      
+                
 % else: 
+          <pre>
 {{  model.izpis_igre(igra) }}                           
           </pre>
       </td>    
