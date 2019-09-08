@@ -146,9 +146,11 @@ class Polje:
                                                 self.razkrij(vrstica, stolpec)
                                         else:
                                                 nov_poz = random.choice(sez_moznosti)
-                                                celica.mina = False
                                                 self.seznam[nov_poz[0]][nov_poz[1]].postavi_mino()
+                                                celica.mina = False
                                                 self.razkrij(vrstica, stolpec)
+                                else:
+                                        self.razkrij(vrstica, stolpec)
                         else:
                                 self.razkrij(vrstica, stolpec)
                 elif len(sez) >= 4:
