@@ -5,7 +5,7 @@ Projektna naloga pri UVP
     * Klasičen minolovec
     * Možnost igranja v terminal in v brskalniku
     * Igranje je možno le s tipkovnico
-    * Prvi ugib ne pristane na mini
+    * Prvi ugib v spletnem vmesniku ne pristane na mini
     * Možnost poljubne izbire velikosti polja in števila min
 
 ## Uporaba
