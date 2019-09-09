@@ -34,7 +34,6 @@
   }
   p {
     font-family: verdana;
-    text
   }
   input[type=text], select {
     width: 20%;

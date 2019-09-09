@@ -5,38 +5,38 @@
 </head>
 
 <style>
-  body {
-      background-color: lightblue;
-    }
+  body {    
+    background-color: lightblue;
+  }
 
   h1 {
-      color:black;
-      text-align: center;
-      font-family: verdana;
-      font-size: 40px;
-      margin-bottom: 20px
-    }
+    color:black;
+    text-align: center;
+    font-family: verdana;
+    font-size: 40px;
+    margin-bottom: 20px
+  }
   h2 {
-      font-family: verdana;
-      font-size: 30px;
-      margin-left: 10px
+    font-family: verdana;
+    font-size: 30px;
+    margin-left: 10px
   }
   p {
-      font-family: verdana;
-      margin-left: 10px
+    font-family: verdana;
+    margin-left: 10px
   }
   form {
-        margin-left: 10px;
+    margin-left: 10px;
   }
 
   input[type=text], select {
-  width: 7%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+    width: 7%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
   }
 
   input[type=submit] {
