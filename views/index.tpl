@@ -70,7 +70,7 @@
        Izbereš lahko tudi število min.
     </p>
     <p>
-        Vpiši velikost polja, nato pa število min. Števili loči s presledkom (Primer: 9 10):
+        Za začetek nove igre vpiši velikost polja, nato pa število min. Števili loči s presledkom (Primer: 9 10):
         <form action="/igra/" method="post">
             <input type="text" name="velikost_mine">
             <input type="submit" value="Nova igra">
