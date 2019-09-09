@@ -1,5 +1,58 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title> Minolovec </title>
+</head>
+
+<style>
+  body {
+      background-color: lightblue;
+    }
+
+  h1 {
+      color:black;
+      text-align: center;
+      font-family: verdana;
+      font-size: 40px;
+      margin-bottom: 20px
+    }
+  h2 {
+      font-family: verdana;
+      font-size: 30px;
+      margin-left: 10px
+  }
+  p {
+      font-family: verdana;
+      margin-left: 10px
+  }
+  form {
+        margin-left: 10px;
+  }
+
+  input[type=text], select {
+  width: 7%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  }
+
+  input[type=submit] {
+    width: 7%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+</style>
 
 <body>
 
@@ -24,18 +77,6 @@
         </form>
         
     </p>
- <!--   <p>
-        Vpiši število min:
-        <input type="text" name="mine">
-        <input type="submit" value="izberi">
-        
-    </p>
-    
-
-
-  <form action="/igra/" method="post">
-    <button type="submit">Nova igra</button>
-  </form> -->
 </body>
 
 </html>
