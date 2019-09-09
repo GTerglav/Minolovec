@@ -1,8 +1,10 @@
 import model
 
+NAVODILA = "Cilj igre je odkriti vsa polje kjer ni min. \nPred začetkom izberemo velikost polja n x n z vpisom ene številke, ki predstavlja n. Enako storimo za število min. \nPolje odkriješ tako da najprej vpišeš vrstico, nato pa še stolpec (Primer: 3 4). \nPolje lahko označiš tudi z zastavico, tako da na koncu dodaš še f (Primer 3 4 f)"
+
 
 def pozdrav():
-    return input("Dobrodošli v minolovca! Napišite velikost polja :")
+    return input("Dobrodošli v minolovca! Za pomoč vpišite črko h ali pa vpišite velikost polja :")
 
 def izpis_igre(igra):
     niz = "    "
@@ -40,7 +42,7 @@ def prikaz_celice(igra, vrsta, stolpec):
             return "X"
 
 def izpis_napake():
-        return   "Nepravilen vnos, poskusite še enkrat"
+        return "Nepravilen vnos, poskusite še enkrat"
 
 def izpis_zmage(igra):
     return "Čestitamo, pravilno ste rešili polje!"
@@ -59,27 +61,36 @@ def nove_mine():
 
 def zazeni_umesnik():
         velikost = pozdrav()
+        if velikost == "h":
+                print(NAVODILA)
+                zazeni_umesnik()
+        else:
+                pass
         mine = nove_mine()
+        if mine == "h":
+                print(NAVODILA)
+                zazeni_umesnik()
+        else:
+                pass
+        
         if model.nova_igra(velikost, mine) == "F":
                 print(izpis_napake())
                 zazeni_umesnik()
         else:
                 igra = model.nova_igra(velikost, mine)
 
-
-
                 while True:
 
                         print(izpis_igre(igra))
 
                         poskus = zahtevaj_vnos()
-                        #igra.ugibaj(poskus)
-
-
 
                         if igra.ugibaj(poskus) == "F":
                                print(izpis_napake())
-
+                        
+                        if poskus == "h":
+                                print(NAVODILA)
+                        
                         if igra.poraz():
                                 print(izpis_igre(igra))
                                 print(izpis_poraza(igra))

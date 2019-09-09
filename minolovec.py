@@ -4,18 +4,15 @@ minolovec = model.Minolovec()
 
 @bottle.get("/")
 def prva_stran():
-    minolovec = 'img10.png'
-    return bottle.template("index.tpl", picture = minolovec)
-
-@bottle.route('/<img10.png>')
-def serve_pictures(picture):
-    return static_file(picture, root='/img10.png')
+    return bottle.template("index.tpl")
 
 @bottle.post("/igra/")
 def zacni_novo_igro():
     # Naredi novo igro
     niz = str(bottle.request.forms.getunicode("velikost_mine"))
     if niz == "":
+        return bottle.template("index.tpl", picture = minolovec)
+    if len(niz.split(" ")) == 1:
         return bottle.template("index.tpl", picture = minolovec)
     else:
         sez = niz.split(" ")

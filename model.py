@@ -6,7 +6,6 @@ import random
 #Konstante
 ZMAGA = "W"
 PORAZ = "L"
-NAPAKA_ZASTAVICA = "S"
 NAPAKA = "F"
 ZACETEK = "S"
 PRVI = "first"
@@ -186,7 +185,7 @@ def naredi_polje(velikost, mine):
         
         polje = Polje(matrika)
         return matrika
-        
+#Funkcija ki ujame napake, nato pa le pokliče zgornjo funkcijo, ki naredi polje      
 def nova_igra(velikost, mine):
         if not velikost.isdigit():
                 return NAPAKA 
@@ -201,7 +200,7 @@ def nova_igra(velikost, mine):
         else:
                 polje = naredi_polje(velikost, mine)
                 return Polje(polje)
-
+#funkciji za prikaz igre v spletnem vmeniku
 def izpis_igre(igra):
 
         niz = "    "
@@ -256,7 +255,7 @@ def ostale(igra, mine):
 
         
 
-#Razred za spletni vmesnik
+#Razred za spletni vmesnik, po vzoru vislic
 
 class Minolovec:
 
